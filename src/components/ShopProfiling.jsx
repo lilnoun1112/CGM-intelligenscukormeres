@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Header from './Header';
 import { ChevronIcon } from './Icons';
-import shopImg from '../assets/shop-profiling-img.jpg';
+import bgImg from '../assets/profiling-flow-bg.jpg';
 import './ShopProfiling.css';
 
 const GOALS = [
@@ -33,14 +33,20 @@ export default function ShopProfiling({ onMenu, nav }) {
 
   return (
     <div className="shop">
-      <Header variant="dark" onMenu={onMenu} nav={nav} />
-      <div className="shop__pad" />
+      <div className="shop__bg">
+        <img src={bgImg} alt="" />
+      </div>
+      <div className="shop__scrim" />
+      <Header variant="white" onMenu={onMenu} nav={nav} />
 
-      <main className="shop__main">
-        <div className="shop__image">
-          <img src={shopImg} alt="" />
-        </div>
+      {/* Curved divider — Ellipse 95 (same shape as the hero) */}
+      <div className="shop__curve" aria-hidden>
+        <svg viewBox="0 0 1440 88" preserveAspectRatio="none">
+          <ellipse cx="720" cy="180" rx="1080" ry="180" fill="var(--ac-bg)" />
+        </svg>
+      </div>
 
+      <div className="shop__content">
         <h1 className="shop__title">Mi a célja a CGM-rendszer használatával</h1>
         <p className="shop__body">
           Lorem ipsum dolor sit amet consectetur. Aliquet fermentum hendrerit at bibendum faucibus sit.
@@ -76,12 +82,14 @@ export default function ShopProfiling({ onMenu, nav }) {
             </ul>
           )}
         </div>
+      </div>
 
-        {/* Forwards to a third-party shop based on the chosen goal (not wired yet) */}
+      {/* Forwards to a third-party shop based on the chosen goal (not wired yet) */}
+      <div className="shop__cta-wrap">
         <button type="button" className="btn btn-primary shop__cta">
           Megnézem az ajánlatokat
         </button>
-      </main>
+      </div>
     </div>
   );
 }
