@@ -36,7 +36,7 @@ const SLIDES = [
 const ICON_MAP = { phone: PhoneGraphIcon, ai: AIIcon, calendar: CalendarIcon };
 const AUTOPLAY_MS = 4500;
 
-export default function Hero({ onCTA, onMenu }) {
+export default function Hero({ onCTA, onMenu, nav }) {
   const [active, setActive] = useState(0);
   const timer = useRef(null);
 
@@ -58,7 +58,7 @@ export default function Hero({ onCTA, onMenu }) {
         <img src={heroMain} alt="" />
       </div>
       <div className="hero__scrim" />
-      <Header variant="white" onMenu={onMenu} />
+      <Header variant="white" onMenu={onMenu} nav={nav} />
 
       {/* Curved white divider — the design's signature shape */}
       <svg className="hero__curve" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden>

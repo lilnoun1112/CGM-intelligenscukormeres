@@ -15,13 +15,13 @@ import './Info.css';
 
 const APP_CARD_IMGS = [appCard1, appCard2, appCard3];
 
-export default function Info({ onMenu, onSeeTestimonials }) {
+export default function Info({ onMenu, nav, onSeeTestimonials }) {
   const [tab, setTab] = useState(0);
   const activeTab = TABS[tab];
 
   return (
     <div className="info">
-      <Header variant="dark" onMenu={onMenu} />
+      <Header variant="dark" onMenu={onMenu} nav={nav} />
       <div className="info__header-pad" />
 
       {/* 1. Kinek ajánljuk? — tabbed checklist + image */}

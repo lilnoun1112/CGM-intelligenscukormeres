@@ -31,12 +31,31 @@ export default function App() {
     return () => { document.body.style.overflow = ''; };
   }, [view]);
 
+  // Shared nav config — used by the desktop header (inline) and the
+  // mobile slide-out menu so the two never drift apart.
+  const navLinks = [
+    { label: 'Kezdőlap', onClick: goToHero },
+    { label: 'Kinek ajánljuk?', onClick: goToInfo },
+    { label: 'Felhasználók visszajelzései', onClick: () => {} },
+    { label: 'Adatkezelési', onClick: () => {} },
+    { label: 'GYIK', onClick: () => {} },
+  ];
+  const navCtas = {
+    primary: { label: 'Kipróbálom ingyen', onClick: goToInfo },
+    secondary: { label: 'Vásárlás', onClick: () => {} },
+  };
+  const nav = { links: navLinks, ctas: navCtas };
+
+  const onMenu = () => setMenuOpen(true);
+  // run a nav action and close the slide-out menu (mobile)
+  const runFromMenu = (fn) => { setMenuOpen(false); fn(); };
+
   return (
     <div className="app">
       <div className={`view-fade ${fading ? 'is-fading' : ''}`}>
         {view === 'hero'
-          ? <Hero onCTA={goToInfo} onMenu={() => setMenuOpen(true)} />
-          : <Info onMenu={() => setMenuOpen(true)} onSeeTestimonials={() => {}} />}
+          ? <Hero onCTA={goToInfo} onMenu={onMenu} nav={nav} />
+          : <Info onMenu={onMenu} nav={nav} onSeeTestimonials={() => {}} />}
       </div>
 
       {/* Sticky bottom CTA bar — Info screen only, not the Hero */}
@@ -49,20 +68,18 @@ export default function App() {
         </div>
       )}
 
-      {/* Slide-out menu */}
+      {/* Slide-out menu (mobile) */}
       <div className={`menu ${menuOpen ? 'is-open' : ''}`}>
         <div className="menu__panel">
           <button className="menu__close" onClick={() => setMenuOpen(false)} aria-label="Bezárás">✕</button>
           <nav className="menu__nav">
-            <a href="#" onClick={goToHero}>Kezdőlap</a>
-            <a href="#" onClick={() => { setMenuOpen(false); goToInfo(); }}>Kinek ajánljuk?</a>
-            <a href="#">Felhasználók visszajelzései</a>
-            <a href="#">Adatkezelési</a>
-            <a href="#">GYIK</a>
+            {navLinks.map((l) => (
+              <a href="#" key={l.label} onClick={(e) => { e.preventDefault(); runFromMenu(l.onClick); }}>{l.label}</a>
+            ))}
           </nav>
           <div className="menu__cta">
-            <button className="btn btn-primary" onClick={() => { setMenuOpen(false); goToInfo(); }}>Kipróbálom ingyen</button>
-            <button className="btn btn-outline">Vásárlás</button>
+            <button className="btn btn-primary" onClick={() => runFromMenu(navCtas.primary.onClick)}>{navCtas.primary.label}</button>
+            <button className="btn btn-outline" onClick={() => runFromMenu(navCtas.secondary.onClick)}>{navCtas.secondary.label}</button>
           </div>
         </div>
         <div className="menu__backdrop" onClick={() => setMenuOpen(false)} />
