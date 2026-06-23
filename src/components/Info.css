@@ -110,7 +110,7 @@
 .pcard__img-wrap {
   height: 296px;
   display: flex; align-items: center; justify-content: center;
-  background: radial-gradient(circle at 50% 45%, #f3fbe7 0%, #e9f9fa 70%);
+  background: var(--white);
   padding-top: 20px;
 }
 .pcard__img-wrap img { width: 230px; height: 230px; object-fit: contain; border-radius: 50%; }

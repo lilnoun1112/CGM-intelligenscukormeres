@@ -1,4 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap');
+@font-face {
+  font-family: 'Roche Sans';
+  src: url('./fonts/RocheSans-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Roche Sans';
+  src: url('./fonts/RocheSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Roche Sans';
+  src: url('./fonts/RocheSans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Roche Sans';
+  src: url('./fonts/RocheSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --ac-bg: #e9f9fa;
@@ -13,8 +40,8 @@
   --ac-gray-70: #e3e3e3;
   --ac-placeholder: #a0a3bd;
   --white: #ffffff;
-  --font-display: 'Mulish', system-ui, sans-serif;
-  --font-body: 'Mulish', system-ui, sans-serif;
+  --font-display: 'Roche Sans', system-ui, sans-serif;
+  --font-body: 'Roche Sans', system-ui, sans-serif;
   --shadow-card: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
   --shadow-field: 0px 1px 1px rgba(0,0,0,0.3), 0px 1px 1.5px rgba(0,0,0,0.15);
   --maxw: 1320px;
