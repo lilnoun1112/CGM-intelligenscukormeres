@@ -51,7 +51,7 @@ export default function App() {
             <a href="#">GYIK</a>
           </nav>
           <div className="menu__cta">
-            <button className="btn btn-primary" onClick={() => { setMenuOpen(false); goToInfo(); }}>Érdekel</button>
+            <button className="btn btn-primary" onClick={() => { setMenuOpen(false); goToInfo(); }}>Kipróbálom ingyen</button>
             <button className="btn btn-outline">Vásárlás</button>
           </div>
         </div>
