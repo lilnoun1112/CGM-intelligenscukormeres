@@ -203,6 +203,11 @@
 .support-card p { font-size: 16px; line-height: 1.5; letter-spacing: 0.16px; color: var(--ac-blue-text); }
 
 /* ---- Responsive ---- */
+/* no sticky CTA bar on desktop, so no reserved space needed */
+@media (min-width: 1200px) {
+  .info { padding-bottom: 0; }
+}
+
 @media (max-width: 900px) {
   .info { gap: 64px; }
   .info__section { padding: 0 20px; }

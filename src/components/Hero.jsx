@@ -60,32 +60,47 @@ export default function Hero({ onCTA, onMenu, nav }) {
       <div className="hero__scrim" />
       <Header variant="white" onMenu={onMenu} nav={nav} />
 
-      {/* Curved white divider — the design's signature shape */}
-      <svg className="hero__curve" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden>
-        <path d="M0,120 C360,0 1080,0 1440,120 L1440,220 L0,220 Z" fill="var(--ac-bg)" />
-      </svg>
+      {/* Curved divider — Ellipse 95 (from the supplied curve.svg asset) */}
+      <div className="hero__curve" aria-hidden>
+        <svg viewBox="0 0 1440 88" preserveAspectRatio="none">
+          <ellipse cx="720" cy="180" rx="1080" ry="180" fill="var(--ac-bg)" />
+        </svg>
+      </div>
 
-      <div className="hero__content">
+      {/* Feature icons — straddle the curve, crossfade per slide */}
+      <div className="hero__icons-layer" aria-hidden>
         {SLIDES.map((slide, i) => (
           <div
             key={slide.key}
-            className={`hero__slide ${i === active ? 'is-active' : ''}`}
-            aria-hidden={i !== active}
+            className={`hero__icons ${i === active ? 'is-active' : ''}`}
+            data-count={slide.icons.length}
           >
-            <div className="hero__icons" data-count={slide.icons.length}>
-              {slide.icons.map((ic) => {
-                const Ic = ICON_MAP[ic];
-                return (
-                  <span className="hero__icon-badge" key={ic}>
-                    <Ic size={slide.icons.length === 1 ? 96 : 60} />
-                  </span>
-                );
-              })}
-            </div>
-            <h1 className="hero__title">{slide.title}</h1>
-            <p className="hero__body">{slide.body}</p>
+            {slide.icons.map((ic) => {
+              const Ic = ICON_MAP[ic];
+              return (
+                <span className="hero__icon-badge" key={ic}>
+                  <Ic size={slide.icons.length === 1 ? 96 : 60} />
+                </span>
+              );
+            })}
           </div>
         ))}
+      </div>
+
+      {/* Text + controls + CTA, below the curve */}
+      <div className="hero__content">
+        <div className="hero__slides">
+          {SLIDES.map((slide, i) => (
+            <div
+              key={slide.key}
+              className={`hero__slide ${i === active ? 'is-active' : ''}`}
+              aria-hidden={i !== active}
+            >
+              <h1 className="hero__title">{slide.title}</h1>
+              <p className="hero__body">{slide.body}</p>
+            </div>
+          ))}
+        </div>
 
         <div className="hero__controls">
           <button className="hero__arrow" onClick={() => { pause(); prev(); }} aria-label="Előző">
