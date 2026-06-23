@@ -48,7 +48,7 @@
   position: fixed;
   left: 0; right: 0; bottom: 0;
   z-index: 40;
-  background: var(--white);
+  background: var(--ac-bg);
   box-shadow: 0 -4px 16px rgba(11, 57, 62, 0.08);
   padding: 16px 40px;
   display: flex;
