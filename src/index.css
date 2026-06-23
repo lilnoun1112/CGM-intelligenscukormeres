@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap');
+
+:root {
+  --ac-bg: #e9f9fa;
+  --ac-blue-shade: #1a818d;
+  --ac-blue-text: #0b393e;
+  --ac-night: #156771;
+  --ac-blue-20: #51cbd9;
+  --ac-teal: #26becf;
+  --ac-green: #8eb927;
+  --ac-black: #2a2a2a;
+  --ac-gray-shade: #737373;
+  --ac-gray-70: #e3e3e3;
+  --ac-placeholder: #a0a3bd;
+  --white: #ffffff;
+  --font-display: 'Mulish', system-ui, sans-serif;
+  --font-body: 'Mulish', system-ui, sans-serif;
+  --shadow-card: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+  --shadow-field: 0px 1px 1px rgba(0,0,0,0.3), 0px 1px 1.5px rgba(0,0,0,0.15);
+  --maxw: 1320px;
+  --header-h: 88px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  background: var(--ac-bg);
+  color: var(--ac-blue-text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4, p { margin: 0; }
+
+.section-head {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 24px; text-align: center; max-width: 1000px;
+  margin: 0 auto; padding: 0 20px;
+}
+.section-head h2 {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(32px, 5vw, 50px); line-height: 1.1;
+  color: var(--ac-blue-shade);
+}
+.section-head p {
+  font-weight: 400; font-size: clamp(16px, 2vw, 18px);
+  line-height: 1.5; letter-spacing: 0.18px; color: var(--ac-blue-text);
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 12px 32px; border-radius: 30px;
+  font-family: var(--font-display); font-weight: 500; font-size: 16px;
+  letter-spacing: 0.16px; line-height: 1.5; border: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--ac-green); color: var(--white); }
+.btn-primary:hover { box-shadow: 0 6px 16px rgba(142,185,39,0.35); }
+.btn-outline { background: transparent; color: var(--ac-blue-shade); border: 1.5px solid var(--ac-blue-shade); }
+.btn-outline:hover { background: rgba(26,129,141,0.08); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

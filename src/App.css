@@ -1,0 +1,44 @@
+.app { position: relative; min-height: 100vh; }
+
+.view-fade { transition: opacity 0.5s ease; opacity: 1; }
+.view-fade.is-fading { opacity: 0; }
+
+/* ---- Slide-out menu ---- */
+.menu { position: fixed; inset: 0; z-index: 100; pointer-events: none; }
+.menu.is-open { pointer-events: auto; }
+.menu__backdrop {
+  position: absolute; inset: 0;
+  background: rgba(11,57,62,0.4);
+  opacity: 0; transition: opacity 0.3s ease;
+}
+.menu.is-open .menu__backdrop { opacity: 1; }
+.menu__panel {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: min(390px, 88vw);
+  background: var(--ac-bg);
+  box-shadow: -8px 0 30px rgba(0,0,0,0.12);
+  transform: translateX(100%);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+  display: flex; flex-direction: column;
+  padding: 24px 16px;
+  gap: 32px;
+}
+.menu.is-open .menu__panel { transform: translateX(0); }
+.menu__close {
+  align-self: flex-end;
+  background: none; border: none;
+  font-size: 22px; color: var(--ac-blue-text);
+  width: 40px; height: 40px;
+}
+.menu__nav { display: flex; flex-direction: column; gap: 26px; padding: 0 8px; }
+.menu__nav a {
+  font-family: var(--font-display);
+  font-weight: 500; font-size: 18px;
+  color: var(--ac-blue-text);
+  transition: color 0.15s ease;
+}
+.menu__nav a:hover { color: var(--ac-blue-shade); }
+.menu__cta { display: flex; flex-direction: column; gap: 12px; padding: 0 8px; margin-top: auto; }
+.menu__cta .btn { width: 100%; }

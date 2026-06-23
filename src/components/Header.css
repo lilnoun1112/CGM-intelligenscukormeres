@@ -1,0 +1,23 @@
+.site-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 30;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+}
+.site-header__spacer { width: 28px; height: 40px; flex-shrink: 0; }
+.site-header__menu {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent; border: none; padding: 0;
+  flex-shrink: 0;
+}
+/* white logo lock-up needs white wordmark — the SVG already carries its own
+   colors, so the variant only swaps which asset Logo renders + hamburger color */
+
+@media (max-width: 600px) {
+  .site-header { padding: 12px 16px; }
+}
