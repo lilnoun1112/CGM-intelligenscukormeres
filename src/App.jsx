@@ -39,6 +39,16 @@ export default function App() {
           : <Info onMenu={() => setMenuOpen(true)} onSeeTestimonials={() => {}} />}
       </div>
 
+      {/* Sticky bottom CTA bar — Info screen only, not the Hero */}
+      {view === 'info' && (
+        <div className="cta-bar">
+          <div className="cta-bar__inner">
+            <button className="btn btn-outline">Megvásárolom</button>
+            <button className="btn btn-primary">Kipróbálom ingyen</button>
+          </div>
+        </div>
+      )}
+
       {/* Slide-out menu */}
       <div className={`menu ${menuOpen ? 'is-open' : ''}`}>
         <div className="menu__panel">
