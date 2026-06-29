@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import Header from './Header';
 import { ChevronIcon } from './Icons';
 import bgImg from '../assets/profiling-flow-bg.jpg';
+import doktor24 from '../assets/doktor24.jpg';
 import './ShopProfiling.css';
 
 const GOALS = [
@@ -10,6 +11,14 @@ const GOALS = [
   'Testsúly kontroll',
   'Sportteljesítmény növelése',
 ];
+
+/* Each goal forwards to a partner shop (forwarding not wired yet). We only
+   have one partner asset for now, so every goal resolves to Doktor24. */
+const PARTNER = {
+  name: 'Doktor24',
+  logo: doktor24,
+  description: 'Lorem ipsum dolor sit amet consectetur. Aliquet fermentum hendrerit at bibendum faucibus sit.',
+};
 
 export default function ShopProfiling({ onMenu, nav }) {
   const [open, setOpen] = useState(false);
@@ -38,13 +47,6 @@ export default function ShopProfiling({ onMenu, nav }) {
       </div>
       <div className="shop__scrim" />
       <Header variant="white" onMenu={onMenu} nav={nav} />
-
-      {/* Curved divider — Ellipse 95 (same shape as the hero) */}
-      <div className="shop__curve" aria-hidden>
-        <svg viewBox="0 0 1440 88" preserveAspectRatio="none">
-          <ellipse cx="720" cy="180" rx="1080" ry="180" fill="var(--ac-bg)" />
-        </svg>
-      </div>
 
       <div className="shop__content">
         <h1 className="shop__title">Mi a célja a CGM-rendszer használatával</h1>
@@ -82,13 +84,23 @@ export default function ShopProfiling({ onMenu, nav }) {
             </ul>
           )}
         </div>
-      </div>
 
-      {/* Forwards to a third-party shop based on the chosen goal (not wired yet) */}
-      <div className="shop__cta-wrap">
-        <button type="button" className="btn btn-primary shop__cta">
-          Megnézem az ajánlatokat
-        </button>
+        {/* Once a goal is picked, reveal the partner the user will be forwarded to */}
+        {selected && (
+          <div className="shop__result">
+            <div className="shop__result-logo">
+              <img src={PARTNER.logo} alt={PARTNER.name} />
+            </div>
+            <div className="shop__result-body">
+              <h2 className="shop__result-name">{PARTNER.name}</h2>
+              <p className="shop__result-desc">{PARTNER.description}</p>
+              {/* Forwards to the third-party shop (not wired yet) */}
+              <button type="button" className="btn btn-primary shop__result-cta">
+                Megnézem az ajánlatokat
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

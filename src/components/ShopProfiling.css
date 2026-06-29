@@ -4,49 +4,33 @@
   min-height: 100dvh;
   overflow: hidden;
   background: var(--ac-bg);
-  /* photo fills the screen down to this line; below it is the teal bg + CTA */
-  --shop-split: 86%;
 }
 
 .shop__bg {
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: var(--shop-split);
+  inset: 0;
   z-index: 1;
 }
 .shop__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
 .shop__scrim {
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: var(--shop-split);
+  inset: 0;
   z-index: 2;
   background: linear-gradient(155deg, rgba(11,57,62,0.6) 0%, rgba(26,129,141,0.5) 50%, rgba(99,150,40,0.4) 100%);
 }
 
-/* Curved divider sits near the bottom; teal CTA area below it */
-.shop__curve {
-  position: absolute;
-  left: 0; right: 0;
-  bottom: calc(100% - var(--shop-split) - 1px);
-  width: 100%;
-  z-index: 3;
-  line-height: 0;
-}
-.shop__curve svg { display: block; width: 100%; height: auto; }
-
-/* Title / body / dropdown — centred over the photo */
+/* Title / body / dropdown / result — centred over the photo */
 .shop__content {
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: var(--shop-split);
+  inset: 0;
   z-index: 4;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: calc(var(--header-h) + 24px) 24px 24px;
+  padding: calc(var(--header-h) + 24px) 24px 40px;
 }
 
 .shop__title {
@@ -71,7 +55,7 @@
 .shop__select {
   position: relative;
   width: 100%;
-  max-width: 460px;
+  max-width: 440px;
   text-align: left;
 }
 .shop__select-trigger {
@@ -106,6 +90,7 @@
   box-shadow: 0 16px 40px rgba(11, 57, 62, 0.22);
   display: flex;
   flex-direction: column;
+  z-index: 5;
   animation: shopMenuIn 0.18s ease;
 }
 @keyframes shopMenuIn {
@@ -127,23 +112,66 @@
 }
 .shop__select-option:hover { background: rgba(26, 129, 141, 0.08); }
 
-/* CTA on the teal strip below the curve */
-.shop__cta-wrap {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: calc(100% - var(--shop-split));
-  z-index: 4;
+/* ---- Result card (shown after a goal is selected) ---- */
+.shop__result {
+  width: 100%;
+  max-width: 700px;
+  margin-top: 28px;
+  background: var(--white);
+  border-radius: 28px;
+  box-shadow: 0 18px 44px rgba(11, 57, 62, 0.24);
+  padding: 28px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 24px;
+  gap: 28px;
+  align-items: stretch;
+  text-align: left;
+  animation: shopResultIn 0.25s ease;
 }
-.shop__cta { width: 100%; max-width: 360px; }
+@keyframes shopResultIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.shop__result-logo {
+  flex: 0 0 150px;
+  width: 150px;
+  height: 150px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.shop__result-logo img { width: 100%; height: 100%; object-fit: cover; }
+.shop__result-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.shop__result-name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.2;
+  color: var(--ac-blue-shade);
+  margin: 0;
+}
+.shop__result-desc {
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.16px;
+  color: var(--ac-blue-text);
+  margin: 0;
+}
+.shop__result-cta { width: 100%; margin-top: auto; }
 
 @media (max-width: 600px) {
-  .shop { --shop-split: 84%; }
-  .shop__content { padding: calc(var(--header-h) + 16px) 20px 16px; }
+  .shop__content { padding: calc(var(--header-h) + 16px) 20px 24px; }
   .shop__title { margin-bottom: 16px; }
   .shop__body { margin-bottom: 24px; }
-  .shop__cta { max-width: 100%; }
+  .shop__result {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding: 24px;
+  }
+  .shop__result-body { align-items: center; }
 }
