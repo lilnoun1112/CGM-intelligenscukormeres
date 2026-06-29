@@ -88,7 +88,7 @@ export default function Testimonials({ onMenu, nav }) {
               <img src={testimonialGuy} alt="" />
               <div className="tg-card__overlay">
                 <div className="tg-card__stars">
-                  {Array.from({ length: 5 }).map((_, s) => <StarIcon key={s} color="#26becf" />)}
+                  {Array.from({ length: 5 }).map((_, s) => <StarIcon key={s} />)}
                 </div>
                 <span className="tg-card__name">{t.name}</span>
                 <span className="tg-card__role">{t.role}</span>
