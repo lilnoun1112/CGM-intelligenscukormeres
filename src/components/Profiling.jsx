@@ -301,7 +301,7 @@ export default function Profiling({ onMenu, nav, onShop, onHome }) {
         {index === 0 && (
           <div className="pf__footer-bar">
             <button className="btn btn-outline" onClick={onShop}>Megvásárolom</button>
-            <button className="btn btn-primary" onClick={() => go(1)}>Kipróbálom ingyen</button>
+            <button className="btn btn-primary" onClick={() => go(1)}>Érdekel</button>
           </div>
         )}
         {isStep && (

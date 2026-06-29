@@ -81,7 +81,7 @@
 .pf__card-body p { font-size: 15px; line-height: 1.5; color: var(--ac-blue-text); margin: 0; }
 
 /* ---- Step content ---- */
-.pf__step-inner { width: 100%; max-width: 1120px; display: flex; flex-direction: column; gap: 18px; }
+.pf__step-inner { width: 100%; max-width: 1280px; display: flex; flex-direction: column; gap: 18px; }
 .pf__step-inner .pf__body { margin-bottom: 6px; }
 .pf__fields { display: flex; gap: 16px; flex-wrap: wrap; }
 .pf__field {
