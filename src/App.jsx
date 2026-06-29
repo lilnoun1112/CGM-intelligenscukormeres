@@ -49,7 +49,6 @@ export default function App() {
   // Shared nav config — used by the desktop header (inline) and the
   // mobile slide-out menu so the two never drift apart.
   const navLinks = [
-    { label: 'Kezdőlap', onClick: goToHero },
     { label: 'Kinek ajánljuk?', onClick: goToInfo },
     { label: 'Felhasználók visszajelzései', onClick: goToTestimonials },
     { label: 'Adatkezelési', onClick: () => {} },
@@ -59,7 +58,7 @@ export default function App() {
     primary: { label: 'Kipróbálom ingyen', onClick: goToInfo },
     secondary: { label: 'Vásárlás', onClick: goToShop },
   };
-  const nav = { links: navLinks, ctas: navCtas };
+  const nav = { links: navLinks, ctas: navCtas, onLogo: goToHero };
 
   const onMenu = () => setMenuOpen(true);
   // run a nav action and close the slide-out menu (mobile)

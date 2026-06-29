@@ -5,10 +5,13 @@ import './Header.css';
 export default function Header({ variant = 'dark', onMenu, nav }) {
   const links = nav?.links ?? [];
   const ctas = nav?.ctas;
+  const onLogo = nav?.onLogo;
   return (
     <header className={`site-header ${variant === 'white' ? 'site-header--white' : ''}`}>
       <div className="site-header__spacer" />
-      <Logo variant={variant} height={48} />
+      <button type="button" className="site-header__logo" aria-label="Kezdőlap" onClick={onLogo}>
+        <Logo variant={variant} height={48} />
+      </button>
 
       {/* Desktop inline nav */}
       <nav className="site-nav">

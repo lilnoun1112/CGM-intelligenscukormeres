@@ -16,6 +16,11 @@
   box-shadow: none;
 }
 .site-header__spacer { width: 28px; height: 40px; flex-shrink: 0; }
+.site-header__logo {
+  background: none; border: none; padding: 0;
+  display: flex; align-items: center;
+  cursor: pointer;
+}
 .site-header__menu {
   width: 40px; height: 40px;
   display: flex; align-items: center; justify-content: center;
