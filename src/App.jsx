@@ -2,11 +2,12 @@ import { useState, useRef, useEffect } from 'react';
 import Hero from './components/Hero';
 import Info from './components/Info';
 import ShopProfiling from './components/ShopProfiling';
+import Testimonials from './components/Testimonials';
 import './App.css';
 
 export default function App() {
   // "hero" = fullscreen carousel intro, "info" = the long scrolling page,
-  // "shop" = shop-profiling entry (goal picker)
+  // "shop" = shop-profiling entry (goal picker), "testimonials" = reviews page
   const [view, setView] = useState('hero');
   const [menuOpen, setMenuOpen] = useState(false);
   const [fading, setFading] = useState(false);
@@ -33,6 +34,12 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
+  const goToTestimonials = () => {
+    setMenuOpen(false);
+    setView('testimonials');
+    window.scrollTo(0, 0);
+  };
+
   // lock body scroll while on hero (it's a fixed fullscreen experience)
   useEffect(() => {
     document.body.style.overflow = view === 'hero' ? 'hidden' : '';
@@ -44,7 +51,7 @@ export default function App() {
   const navLinks = [
     { label: 'Kezdőlap', onClick: goToHero },
     { label: 'Kinek ajánljuk?', onClick: goToInfo },
-    { label: 'Felhasználók visszajelzései', onClick: () => {} },
+    { label: 'Felhasználók visszajelzései', onClick: goToTestimonials },
     { label: 'Adatkezelési', onClick: () => {} },
     { label: 'GYIK', onClick: () => {} },
   ];
@@ -61,7 +68,8 @@ export default function App() {
   const renderView = () => {
     if (view === 'hero') return <Hero onCTA={goToInfo} onMenu={onMenu} nav={nav} />;
     if (view === 'shop') return <ShopProfiling onMenu={onMenu} nav={nav} />;
-    return <Info onMenu={onMenu} nav={nav} onSeeTestimonials={() => {}} />;
+    if (view === 'testimonials') return <Testimonials onMenu={onMenu} nav={nav} />;
+    return <Info onMenu={onMenu} nav={nav} onSeeTestimonials={goToTestimonials} />;
   };
 
   return (
@@ -70,8 +78,8 @@ export default function App() {
         {renderView()}
       </div>
 
-      {/* Sticky bottom CTA bar — Info screen only, not the Hero */}
-      {view === 'info' && (
+      {/* Sticky bottom CTA bar — content pages (Info, Testimonials) */}
+      {(view === 'info' || view === 'testimonials') && (
         <div className="cta-bar">
           <div className="cta-bar__inner">
             <button className="btn btn-outline" onClick={goToShop}>Megvásárolom</button>
