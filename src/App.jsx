@@ -3,11 +3,13 @@ import Hero from './components/Hero';
 import Info from './components/Info';
 import ShopProfiling from './components/ShopProfiling';
 import Testimonials from './components/Testimonials';
+import Profiling from './components/Profiling';
 import './App.css';
 
 export default function App() {
   // "hero" = fullscreen carousel intro, "info" = the long scrolling page,
-  // "shop" = shop-profiling entry (goal picker), "testimonials" = reviews page
+  // "shop" = shop-profiling entry, "testimonials" = reviews page,
+  // "trial" = the free-trial profiling flow (intro + 7-step wizard)
   const [view, setView] = useState('hero');
   const [menuOpen, setMenuOpen] = useState(false);
   const [fading, setFading] = useState(false);
@@ -40,6 +42,12 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
+  const goToTrial = () => {
+    setMenuOpen(false);
+    setView('trial');
+    window.scrollTo(0, 0);
+  };
+
   // lock body scroll while on hero (it's a fixed fullscreen experience)
   useEffect(() => {
     document.body.style.overflow = view === 'hero' ? 'hidden' : '';
@@ -55,7 +63,7 @@ export default function App() {
     { label: 'GYIK', onClick: () => {} },
   ];
   const navCtas = {
-    primary: { label: 'Kipróbálom ingyen', onClick: goToInfo },
+    primary: { label: 'Kipróbálom ingyen', onClick: goToTrial },
     secondary: { label: 'Vásárlás', onClick: goToShop },
   };
   const nav = { links: navLinks, ctas: navCtas, onLogo: goToHero };
@@ -68,6 +76,7 @@ export default function App() {
     if (view === 'hero') return <Hero onCTA={goToInfo} onMenu={onMenu} nav={nav} />;
     if (view === 'shop') return <ShopProfiling onMenu={onMenu} nav={nav} />;
     if (view === 'testimonials') return <Testimonials onMenu={onMenu} nav={nav} />;
+    if (view === 'trial') return <Profiling onMenu={onMenu} nav={nav} onShop={goToShop} />;
     return <Info onMenu={onMenu} nav={nav} onSeeTestimonials={goToTestimonials} />;
   };
 
@@ -82,7 +91,7 @@ export default function App() {
         <div className="cta-bar">
           <div className="cta-bar__inner">
             <button className="btn btn-outline" onClick={goToShop}>Megvásárolom</button>
-            <button className="btn btn-primary" onClick={goToInfo}>Kipróbálom ingyen</button>
+            <button className="btn btn-primary" onClick={goToTrial}>Kipróbálom ingyen</button>
           </div>
         </div>
       )}
