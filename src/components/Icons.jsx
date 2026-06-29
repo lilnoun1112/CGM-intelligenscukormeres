@@ -60,7 +60,7 @@ export function ChevronIcon({ size = 20, color = '#0b393e', dir = 'right' }) {
   );
 }
 
-export function StarIcon({ size = 18, color = '#8eb927' }) {
+export function StarIcon({ size = 18, color = '#26becf' }) {
   return (
     <svg width={size} height={size} viewBox="0 0 18 18" fill={color} aria-hidden>
       <path d="M9 1 L11.3 6.2 L17 6.8 L12.8 10.6 L14 16.2 L9 13.3 L4 16.2 L5.2 10.6 L1 6.8 L6.7 6.2 Z" />
