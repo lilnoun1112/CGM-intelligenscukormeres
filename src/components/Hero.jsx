@@ -1,7 +1,10 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Header from './Header';
-import { PhoneGraphIcon, AIIcon, CalendarIcon, ChevronIcon } from './Icons';
+import { ChevronIcon } from './Icons';
 import heroMain from '../assets/hero-main.jpg';
+import iconContinuous from '../assets/1-continous.svg';
+import iconAi from '../assets/2-ai.svg';
+import iconDays from '../assets/3-14days.svg';
 import './Hero.css';
 
 /* Verified from the reference video + Figma slide-1 context.
@@ -33,7 +36,7 @@ const SLIDES = [
   },
 ];
 
-const ICON_MAP = { phone: PhoneGraphIcon, ai: AIIcon, calendar: CalendarIcon };
+const ICON_MAP = { phone: iconContinuous, ai: iconAi, calendar: iconDays };
 const AUTOPLAY_MS = 4500;
 
 export default function Hero({ onCTA, onMenu, nav }) {
@@ -76,10 +79,10 @@ export default function Hero({ onCTA, onMenu, nav }) {
             data-count={slide.icons.length}
           >
             {slide.icons.map((ic) => {
-              const Ic = ICON_MAP[ic];
+              const sz = slide.icons.length === 1 ? 96 : 60;
               return (
                 <span className="hero__icon-badge" key={ic}>
-                  <Ic size={slide.icons.length === 1 ? 96 : 60} />
+                  <img src={ICON_MAP[ic]} alt="" width={sz} height={sz} />
                 </span>
               );
             })}

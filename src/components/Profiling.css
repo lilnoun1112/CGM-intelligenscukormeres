@@ -1,0 +1,185 @@
+.pf {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--ac-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Photo region (everything above the footer/teal strip) */
+.pf__photo {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+.pf__bg { position: absolute; inset: 0; z-index: 1; }
+.pf__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.pf__scrim {
+  position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(155deg, rgba(11,57,62,0.6) 0%, rgba(26,129,141,0.5) 50%, rgba(99,150,40,0.4) 100%);
+}
+
+/* Sliding content */
+.pf__viewport { position: absolute; inset: 0; z-index: 4; overflow: hidden; }
+.pf__track { display: flex; height: 100%; transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
+.pf__panel {
+  flex: 0 0 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: calc(var(--header-h) + 24px) 40px 120px;
+}
+.pf__panel--intro { align-items: center; justify-content: center; text-align: center; }
+.pf__panel--step { align-items: flex-start; justify-content: flex-end; }
+.pf__panel--thanks { align-items: center; justify-content: center; text-align: center; }
+
+/* Curve divider at the bottom of the photo region */
+.pf__curve { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; z-index: 3; line-height: 0; }
+.pf__curve svg { display: block; width: 100%; height: auto; }
+
+/* ---- Shared typography ---- */
+.pf__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(28px, 4vw, 46px);
+  line-height: 1.1;
+  color: var(--white);
+  margin: 0 0 16px;
+}
+.pf__title--center { max-width: 900px; }
+.pf__title-accent { color: var(--ac-green); }
+.pf__body {
+  font-size: clamp(15px, 1.6vw, 18px);
+  line-height: 1.5;
+  letter-spacing: 0.18px;
+  color: var(--white);
+  margin: 0;
+}
+.pf__body--center { max-width: 880px; }
+
+/* ---- Intro cards ---- */
+.pf__intro-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; width: 100%; max-width: 1160px; }
+.pf__cards { display: flex; gap: 24px; width: 100%; justify-content: center; }
+.pf__card {
+  flex: 1 1 0;
+  max-width: 360px;
+  background: var(--white);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+.pf__card-img { height: 190px; }
+.pf__card-img img { width: 100%; height: 100%; object-fit: cover; }
+.pf__card-body { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 10px; }
+.pf__card-body h3 { font-family: var(--font-display); font-weight: 500; font-size: 22px; color: var(--ac-blue-shade); margin: 0; }
+.pf__card-body p { font-size: 15px; line-height: 1.5; color: var(--ac-blue-text); margin: 0; }
+
+/* ---- Step content ---- */
+.pf__step-inner { width: 100%; max-width: 1120px; display: flex; flex-direction: column; gap: 18px; }
+.pf__step-inner .pf__body { margin-bottom: 6px; }
+.pf__fields { display: flex; gap: 16px; flex-wrap: wrap; }
+.pf__field {
+  flex: 1 1 220px;
+  min-width: 0;
+  background: var(--white);
+  border: none;
+  border-radius: 32px;
+  padding: 17px 24px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--ac-blue-text);
+  box-shadow: 0 6px 20px rgba(11, 57, 62, 0.12);
+}
+.pf__field::placeholder { color: var(--ac-gray-shade); }
+.pf__field:focus { outline: 2px solid var(--ac-teal); outline-offset: 1px; }
+
+/* Select */
+.pf__select { position: relative; flex: 1 1 220px; min-width: 0; }
+.pf__select-trigger {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  cursor: pointer; text-align: left;
+}
+.pf__placeholder { color: var(--ac-gray-shade); }
+.pf__select-value { color: var(--ac-blue-text); }
+/* opens upward — the fields sit low on the panel, so a downward menu would be
+   clipped by the curve/footer */
+.pf__select-menu {
+  position: absolute; bottom: calc(100% + 8px); left: 0; right: 0; z-index: 6;
+  list-style: none; margin: 0; padding: 8px;
+  background: var(--white); border-radius: 18px;
+  box-shadow: 0 -12px 40px rgba(11, 57, 62, 0.22);
+  animation: pfMenuIn 0.16s ease;
+}
+@keyframes pfMenuIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.pf__select-option {
+  width: 100%; text-align: left; background: none; border: none;
+  border-radius: 10px; padding: 12px 16px;
+  font-family: var(--font-body); font-size: 16px; color: var(--ac-blue-text);
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.pf__select-option:hover, .pf__select-option.is-selected { background: var(--ac-teal); color: #fff; }
+
+/* Consents */
+.pf__consents { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+.pf__consent { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+.pf__consent input { position: absolute; opacity: 0; width: 0; height: 0; }
+.pf__check {
+  flex: 0 0 auto;
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+  transition: background 0.15s ease;
+}
+.pf__check svg { opacity: 0; transition: opacity 0.12s ease; }
+.pf__consent input:checked + .pf__check { background: var(--ac-teal); border-color: var(--ac-teal); }
+.pf__consent input:checked + .pf__check svg { opacity: 1; }
+.pf__consent input:focus-visible + .pf__check { outline: 2px solid var(--ac-teal); outline-offset: 2px; }
+.pf__consent-text { font-size: 15px; line-height: 1.4; color: var(--white); }
+.pf__link { color: var(--ac-teal); text-decoration: underline; }
+
+/* Thank you */
+.pf__thanks-inner { display: flex; flex-direction: column; align-items: center; gap: 16px; max-width: 760px; }
+
+/* ---- Footer (teal strip) ---- */
+.pf__footer { flex: 0 0 auto; background: var(--ac-bg); padding: 18px 40px; }
+.pf__footer-bar { display: flex; gap: 16px; justify-content: center; }
+.pf__footer-nav { display: flex; align-items: center; justify-content: space-between; max-width: var(--maxw); margin: 0 auto; }
+.pf__footer-nav--center { justify-content: center; }
+.pf__counter { font-family: var(--font-display); font-weight: 500; font-size: 16px; color: var(--ac-blue-shade); }
+
+/* ---- Responsive ---- */
+@media (max-width: 700px) {
+  .pf__panel { padding: calc(var(--header-h) + 16px) 20px 104px; }
+  .pf__panel--step { justify-content: center; }
+  .pf__title { font-size: clamp(26px, 7vw, 34px); }
+
+  /* intro cards become a horizontal swipe carousel */
+  .pf__cards {
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+  }
+  .pf__cards::-webkit-scrollbar { display: none; }
+  .pf__card { flex: 0 0 80%; max-width: 80%; scroll-snap-align: center; }
+
+  /* step fields stack */
+  .pf__fields { flex-direction: column; }
+  .pf__field, .pf__select { flex: 1 1 auto; width: 100%; }
+
+  .pf__footer { padding: 14px 16px; }
+  .pf__footer-bar { gap: 12px; }
+  .pf__footer-bar .btn { flex: 1 1 0; padding-left: 12px; padding-right: 12px; }
+}
