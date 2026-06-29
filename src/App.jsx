@@ -76,7 +76,7 @@ export default function App() {
     if (view === 'hero') return <Hero onCTA={goToInfo} onMenu={onMenu} nav={nav} />;
     if (view === 'shop') return <ShopProfiling onMenu={onMenu} nav={nav} />;
     if (view === 'testimonials') return <Testimonials onMenu={onMenu} nav={nav} />;
-    if (view === 'trial') return <Profiling onMenu={onMenu} nav={nav} onShop={goToShop} />;
+    if (view === 'trial') return <Profiling onMenu={onMenu} nav={nav} onShop={goToShop} onHome={goToHero} />;
     return <Info onMenu={onMenu} nav={nav} onSeeTestimonials={goToTestimonials} />;
   };
 

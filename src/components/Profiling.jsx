@@ -14,8 +14,7 @@ const INTRO_CARDS = [
   { img: card3, title: 'Díjmentes konzultáció és próba', body: 'A regisztrálók értékes doktor24.hu oktatásban részesülnek és kipróbálhatják az új Accu-Chek SmartGuide CGM-szenzort.' },
 ];
 
-/* Wizard steps. `title` is an array of [text, accent?] segments (accent = green).
-   TODO: steps 3–7 awaiting their designs. */
+/* Wizard steps. `title` is an array of [text, accent?] segments (accent = green). */
 const STEPS = [
   {
     id: 'newsletter',
@@ -42,6 +41,34 @@ const STEPS = [
       { name: 'foglalkozas', type: 'select', placeholder: 'Foglalkozás*', options: ['Diák', 'Aktív dolgozó', 'Nyugdíjas', 'Egyéb'] },
     ],
   },
+  {
+    id: 'lifestyle',
+    title: [['Néhány kérdés az '], ['életmódoddal kapcsolatban', true]],
+    body: 'Hogy az igényeidnek megfelelő termékeket ajánlhassunk.',
+    fields: [
+      { name: 'temak', type: 'select', placeholder: 'Milyen témák érdekelnek?*', options: ['1-es típusú diabétesz', '2-es típusú diabétesz', 'Sport és aktív életmód', 'Tudatos étkezés és glükózszint', 'CGM-használat a mindennapokban', 'Általános termékinformációk'] },
+      { name: 'modszerek', type: 'select', placeholder: 'Szerinted mik a leghatékonyabb módszerek a diabétesszel való együttélésre?*', options: ['Vércukormérés', 'Inzulinhasználat', 'Megfelelő étkezés', 'Aktív, sportos életmód', 'CGM szenzor használat'] },
+      { name: 'ismeretek', type: 'select', placeholder: 'Milyen ismereteid vannak a CGM szenzorokról?*', options: ['Rendszeresen használom', 'Próbáltam már, de jelenleg nem', 'Ismerem, de nem érdekel', 'Nem hallottam róla'] },
+    ],
+  },
+  {
+    id: 'social',
+    title: [['Közösségi média '], ['profiljaid', true]],
+    body: 'Ha megfelelsz a kiválasztási szempontoknak, esélyed nyílik arra, hogy további előnyökben részesülhess.',
+    fields: [
+      { name: 'platformok', type: 'multiselect', placeholder: 'Milyen közösségi média profiljaid vannak?*', options: ['Facebook', 'Instagram', 'Tiktok', 'Youtube'] },
+    ],
+  },
+  {
+    id: 'handles',
+    title: [['Közösségi média '], ['profiljaid', true]],
+    body: 'Ha megfelelsz a kiválasztási szempontoknak, esélyed nyílik arra, hogy további előnyökben részesülhess.',
+    fields: [
+      { name: 'instagram', type: 'text', placeholder: '@instagram_neved' },
+      { name: 'tiktok', type: 'text', placeholder: '@tiktok_neved' },
+      { name: 'youtube', type: 'text', placeholder: '@youtube_neved' },
+    ],
+  },
 ];
 
 const LAST = STEPS.length + 1; // index of the thank-you panel (0 = intro)
@@ -59,9 +86,9 @@ function indexFromParam(value) {
   return 0;
 }
 
-function Title({ parts }) {
+function Title({ parts, className }) {
   return (
-    <h1 className="pf__title">
+    <h1 className={`pf__title ${className || ''}`}>
       {parts.map((seg, i) => (
         <span key={i} className={seg[1] ? 'pf__title-accent' : undefined}>{seg[0]}</span>
       ))}
@@ -69,13 +96,15 @@ function Title({ parts }) {
   );
 }
 
+const CheckMark = () => (
+  <svg viewBox="0 0 20 20" width="14" height="14" aria-hidden><path d="M4 10.5 L8.5 15 L16 5.5" stroke="#fff" strokeWidth="2.4" fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg>
+);
+
 function Consent({ parts, checked, onToggle }) {
   return (
     <label className="pf__consent">
       <input type="checkbox" checked={checked} onChange={onToggle} />
-      <span className="pf__check" aria-hidden>
-        <svg viewBox="0 0 20 20" width="14" height="14"><path d="M4 10.5 L8.5 15 L16 5.5" stroke="#fff" strokeWidth="2.4" fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg>
-      </span>
+      <span className="pf__check" aria-hidden><CheckMark /></span>
       <span className="pf__consent-text">
         {parts.map((seg, i) => (
           <span key={i} className={seg[1] === 'link' ? 'pf__link' : undefined}>{seg[0]}</span>
@@ -85,15 +114,20 @@ function Consent({ parts, checked, onToggle }) {
   );
 }
 
-function Select({ placeholder, options, value, onChange }) {
-  const [open, setOpen] = useState(false);
+function useOutsideClose(open, setOpen) {
   const ref = useRef(null);
   useEffect(() => {
     if (!open) return;
     const onDown = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
     document.addEventListener('mousedown', onDown);
     return () => document.removeEventListener('mousedown', onDown);
-  }, [open]);
+  }, [open, setOpen]);
+  return ref;
+}
+
+function Select({ placeholder, options, value, onChange }) {
+  const [open, setOpen] = useState(false);
+  const ref = useOutsideClose(open, setOpen);
   return (
     <div className={`pf__select ${open ? 'is-open' : ''}`} ref={ref}>
       <button type="button" className="pf__field pf__select-trigger" aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
@@ -113,6 +147,33 @@ function Select({ placeholder, options, value, onChange }) {
   );
 }
 
+function MultiSelect({ placeholder, options, value = [], onChange }) {
+  const [open, setOpen] = useState(false);
+  const ref = useOutsideClose(open, setOpen);
+  const toggle = (opt) => onChange(value.includes(opt) ? value.filter((v) => v !== opt) : [...value, opt]);
+  const label = value.length ? value.join(', ') : placeholder;
+  return (
+    <div className={`pf__select ${open ? 'is-open' : ''}`} ref={ref}>
+      <button type="button" className="pf__field pf__select-trigger" aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+        <span className={value.length ? 'pf__select-value' : 'pf__placeholder'}>{label}</span>
+        <ChevronIcon dir={open ? 'up' : 'down'} color="#0b393e" />
+      </button>
+      {open && (
+        <ul className="pf__select-menu" role="listbox" aria-multiselectable="true">
+          {options.map((opt) => (
+            <li key={opt} role="option" aria-selected={value.includes(opt)}>
+              <button type="button" className="pf__multi-option" onClick={() => toggle(opt)}>
+                <span className={`pf__check pf__check--sm ${value.includes(opt) ? 'is-on' : ''}`} aria-hidden><CheckMark /></span>
+                {opt}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 function StepPanel({ step, values, setValue, consents, toggleConsent }) {
   return (
     <div className="pf__panel pf__panel--step">
@@ -120,15 +181,15 @@ function StepPanel({ step, values, setValue, consents, toggleConsent }) {
         <Title parts={step.title} />
         <p className="pf__body">{step.body}</p>
         <div className="pf__fields">
-          {step.fields.map((f) => (
-            f.type === 'select' ? (
-              <Select key={f.name} placeholder={f.placeholder} options={f.options}
-                value={values[f.name] || ''} onChange={(v) => setValue(f.name, v)} />
-            ) : (
-              <input key={f.name} className="pf__field" type={f.type} placeholder={f.placeholder}
-                value={values[f.name] || ''} onChange={(e) => setValue(f.name, e.target.value)} />
-            )
-          ))}
+          {step.fields.map((f) => {
+            if (f.type === 'select') {
+              return <Select key={f.name} placeholder={f.placeholder} options={f.options} value={values[f.name] || ''} onChange={(v) => setValue(f.name, v)} />;
+            }
+            if (f.type === 'multiselect') {
+              return <MultiSelect key={f.name} placeholder={f.placeholder} options={f.options} value={values[f.name] || []} onChange={(v) => setValue(f.name, v)} />;
+            }
+            return <input key={f.name} className="pf__field" type={f.type} placeholder={f.placeholder} value={values[f.name] || ''} onChange={(e) => setValue(f.name, e.target.value)} />;
+          })}
         </div>
         {step.consents && (
           <div className="pf__consents">
@@ -142,10 +203,10 @@ function StepPanel({ step, values, setValue, consents, toggleConsent }) {
   );
 }
 
-export default function Profiling({ onMenu, nav, onShop }) {
+export default function Profiling({ onMenu, nav, onShop, onHome }) {
   const [index, setIndex] = useState(() => indexFromParam(new URLSearchParams(window.location.search).get('step')));
-  const [form, setForm] = useState({}); // field values keyed by step id + field name
-  const [consents, setConsents] = useState({}); // keyed by step id -> { idx: bool }
+  const [form, setForm] = useState({});
+  const [consents, setConsents] = useState({});
 
   // Normalize the URL on mount; clear ?step on unmount (leaving the flow)
   useEffect(() => {
@@ -169,7 +230,6 @@ export default function Profiling({ onMenu, nav, onShop }) {
   const toggleConsent = (stepId) => (i) => setConsents((c) => ({ ...c, [`${stepId}.${i}`]: !c[`${stepId}.${i}`] }));
 
   const isStep = index >= 1 && index <= STEPS.length;
-  const stepNumber = index; // 1-based for the counter
 
   return (
     <div className="pf">
@@ -217,11 +277,13 @@ export default function Profiling({ onMenu, nav, onShop }) {
               />
             ))}
 
-            {/* LAST — Thank you (placeholder until the design arrives) */}
+            {/* LAST — Thank you */}
             <div className="pf__panel pf__panel--thanks">
               <div className="pf__thanks-inner">
-                <h1 className="pf__title pf__title--center">Köszönjük a <span className="pf__title-accent">jelentkezésed!</span></h1>
-                <p className="pf__body pf__body--center">Hamarosan e-mailben értesítünk a következő lépésekről.</p>
+                <h1 className="pf__title pf__title--left">
+                  <span className="pf__title-accent">Köszönjük</span> a regisztrációdat!
+                </h1>
+                <p className="pf__body">Figyeld az e-mailedet, mert hamarosan indul az ingyenes próba!</p>
               </div>
             </div>
           </div>
@@ -245,13 +307,13 @@ export default function Profiling({ onMenu, nav, onShop }) {
         {isStep && (
           <div className="pf__footer-nav">
             <button className="btn btn-outline" onClick={() => go(index - 1)}>Vissza</button>
-            <span className="pf__counter">{stepNumber}/{STEPS.length}</span>
+            <span className="pf__counter">{index}/{STEPS.length}</span>
             <button className="btn btn-primary" onClick={() => go(index + 1)}>Tovább</button>
           </div>
         )}
         {index === LAST && (
           <div className="pf__footer-nav pf__footer-nav--center">
-            <button className="btn btn-primary" onClick={() => go(0)}>Vissza a kezdőlapra</button>
+            <button className="btn btn-primary" onClick={onHome}>Vissza a főoldalra</button>
           </div>
         )}
       </div>
