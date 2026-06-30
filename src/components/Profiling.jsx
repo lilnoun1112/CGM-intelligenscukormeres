@@ -289,14 +289,9 @@ export default function Profiling({ onMenu, nav, onShop, onHome }) {
           </div>
         </div>
 
-        <div className="pf__curve" aria-hidden>
-          <svg viewBox="0 0 1440 88" preserveAspectRatio="none">
-            <ellipse cx="720" cy="180" rx="1080" ry="180" fill="var(--ac-bg)" />
-          </svg>
-        </div>
       </div>
 
-      {/* Footer — swaps by panel */}
+      {/* Footer — swaps by panel; floats transparently over the photo */}
       <div className="pf__footer">
         {index === 0 && (
           <div className="pf__footer-bar">

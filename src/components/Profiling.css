@@ -4,14 +4,12 @@
   height: 100dvh;
   overflow: hidden;
   background: var(--ac-bg);
-  display: flex;
-  flex-direction: column;
 }
 
-/* Photo region (everything above the footer/teal strip) */
+/* Photo region — full-bleed; the footer floats over it */
 .pf__photo {
-  position: relative;
-  flex: 1;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
 }
 .pf__bg { position: absolute; inset: 0; z-index: 1; }
@@ -35,10 +33,6 @@
 .pf__panel--intro { align-items: center; justify-content: center; text-align: center; }
 .pf__panel--step { align-items: flex-start; justify-content: center; }
 .pf__panel--thanks { align-items: flex-start; justify-content: center; text-align: left; }
-
-/* Curve divider at the bottom of the photo region */
-.pf__curve { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; z-index: 3; line-height: 0; }
-.pf__curve svg { display: block; width: 100%; height: auto; }
 
 /* ---- Shared typography ---- */
 .pf__title {
@@ -160,7 +154,7 @@
 .pf__thanks-inner { display: flex; flex-direction: column; align-items: center; gap: 16px; max-width: 760px; }
 
 /* ---- Footer (teal strip) ---- */
-.pf__footer { flex: 0 0 auto; background: var(--ac-bg); padding: 18px 40px; }
+.pf__footer { position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; background: transparent; padding: 18px 40px; }
 .pf__footer-bar { display: flex; gap: 16px; justify-content: center; }
 .pf__footer-nav { display: flex; align-items: center; justify-content: space-between; max-width: var(--maxw); margin: 0 auto; }
 .pf__footer-nav--center { justify-content: center; }
