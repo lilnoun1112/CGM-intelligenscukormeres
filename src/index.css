@@ -26,6 +26,13 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'Roche Sans Condensed';
+  src: url('./fonts/RocheSansCondensed-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --ac-bg: #e9f9fa;
@@ -42,6 +49,8 @@
   --white: #ffffff;
   --font-display: 'Roche Sans', system-ui, sans-serif;
   --font-body: 'Roche Sans', system-ui, sans-serif;
+  --font-condensed: 'Roche Sans Condensed', 'Roche Sans', system-ui, sans-serif;
+  --legal-h: 10vh;
   --shadow-card: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
   --shadow-field: 0px 1px 1px rgba(0,0,0,0.3), 0px 1px 1.5px rgba(0,0,0,0.15);
   --maxw: 1320px;
@@ -50,6 +59,8 @@
 }
 * { box-sizing: border-box; }
 html, body, #root { margin: 0; padding: 0; }
+/* Reserve space for the fixed medical-legal banner across the whole site */
+#root { padding-top: var(--legal-h); }
 body {
   font-family: var(--font-body);
   background: var(--ac-bg);

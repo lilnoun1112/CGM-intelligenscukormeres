@@ -1,0 +1,28 @@
+.legal-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  height: var(--legal-h);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2.5%;
+  overflow: hidden;
+}
+
+.legal-banner__text {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1;
+  font-family: var(--font-condensed);
+  font-weight: 300;
+  color: #8a8a8a;
+  /* Fluid: scales with viewport width so the line fills the band's width at
+     every screen size; the vh term caps it on short/wide viewports. */
+  font-size: min(3.25vw, 8vh);
+}

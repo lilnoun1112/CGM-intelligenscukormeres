@@ -4,6 +4,7 @@ import Info from './components/Info';
 import ShopProfiling from './components/ShopProfiling';
 import Testimonials from './components/Testimonials';
 import Profiling from './components/Profiling';
+import LegalBanner from './components/LegalBanner';
 import './App.css';
 
 export default function App() {
@@ -82,6 +83,7 @@ export default function App() {
 
   return (
     <div className="app">
+      <LegalBanner />
       <div className={`view-fade ${fading ? 'is-fading' : ''}`}>
         {renderView()}
       </div>

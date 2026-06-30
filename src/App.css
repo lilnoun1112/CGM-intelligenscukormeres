@@ -1,4 +1,4 @@
-.app { position: relative; min-height: 100vh; }
+.app { position: relative; min-height: calc(100vh - var(--legal-h)); }
 
 .view-fade { transition: opacity 0.5s ease; opacity: 1; }
 .view-fade.is-fading { opacity: 0; }
