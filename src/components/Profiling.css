@@ -158,7 +158,11 @@
 .pf__footer-bar { display: flex; gap: 16px; justify-content: center; }
 .pf__footer-nav { display: flex; align-items: center; justify-content: space-between; max-width: var(--maxw); margin: 0 auto; }
 .pf__footer-nav--center { justify-content: center; }
-.pf__counter { font-family: var(--font-display); font-weight: 500; font-size: 16px; color: var(--ac-blue-shade); }
+.pf__counter { font-family: var(--font-display); font-weight: 500; font-size: 16px; color: #fff; }
+
+/* Outline buttons float over the photo — render them white */
+.pf__footer .btn-outline { color: #fff; border-color: rgba(255, 255, 255, 0.7); }
+.pf__footer .btn-outline:hover { background: rgba(255, 255, 255, 0.12); }
 
 /* ---- Responsive ---- */
 @media (max-width: 700px) {
